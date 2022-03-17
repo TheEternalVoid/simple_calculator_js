@@ -1,31 +1,96 @@
-//Create calculator functions Add, Subtract, multiply, divide, equal, clear
+const operationButtons = document.getElementsByClassName('operationButton');
+const numberButtons = document.getElementsByClassName('numberButton');
+const decimal = document.getElementById('decimal');
+const equals = document.getElementById('equals');
+const backspace = document.getElementById('backspace');
+const clear = document.getElementById('clear');
+const zero = document.getElementById('zero');
 
-//Function that takes two numbers and adds them together for now this will be 2 passed numbers eventually we will get from entry field
-function add(num1, num2) {
-    console.log(num1 + num2)
+const firstNum = document.getElementById('firstNum');
+const operation = document.getElementById('operation');
+const secondNum = document.getElementById('secondNum');
+
+function operate(operation, n1, n2) {
+  const operations = {
+    "+": (a, b) => a+b,
+    "-": (a, b) => a-b,
+    "*": (a, b) => a*b,
+    "/": (a, b) => a/b
+  };
+  return operations[operation](parseFloat(n1), parseFloat(n2));
 }
-//Function takes two numbers and subtracts them
-function subtract(num1, num2) {
-    console.log(num1 - num2)
+
+function whereToPlaceNumber() {
+  if (operation.childNodes.length === 0) {
+    return firstNum;
+  }
+  return secondNum;
 }
-//Function takes two numbers and multiplys them
-function multiply(num1, num2) {
-    console.log(num1 * num2)
+
+for (const button of numberButtons) {
+  button.addEventListener('click', () => {
+    elementToFill = whereToPlaceNumber();
+    if (elementToFill.textContent === '0') {
+      elementToFill.textContent = button.dataset.value;
+    } else {
+      whereToPlaceNumber().textContent += button.dataset.value;
+    }
+  })
 }
-//Function takes two numbers and divides them
-function divide(num1, num2) {
-    console.log(num1 / num2) 
+
+for (const button of operationButtons) {
+  button.addEventListener('click', () => {
+    if (firstNum.childNodes.length === 0) return;
+
+    if (secondNum.childNodes.length != 0) {
+      firstNum.textContent = operate(operation.textContent, firstNum.textContent, secondNum.textContent);
+      secondNum.textContent = '';
+    }
+    operation.textContent = button.dataset.value;
+  });
 }
-//Function takes previous number in text field operators on it with given operator and new text field number and displays to dom
 
-//Clear removes everything in text field.
+decimal.addEventListener('click', () => {
+  elementToFill = whereToPlaceNumber();
+  if (!elementToFill.textContent.includes('.')) {
+    if (elementToFill.childNodes.length === 0) {
+      elementToFill.textContent = '0.';
+    } else {
+      elementToFill.textContent += decimal.dataset.value;
+    }
+  }
+});
 
+zero.addEventListener('click', () => {
+  elementToFill = whereToPlaceNumber();
+  if (elementToFill.textContent.length === 0 || elementToFill.textContent === '0') {
+    elementToFill.textContent = '0.';
+  } else {
+    elementToFill.textContent += zero.dataset.value;
+  }
+});
 
-//render calculator to dom
+equals.addEventListener('click', () => {
+  if (secondNum.childNodes.length != 0) {
+    firstNum.textContent = operate(operation.textContent, firstNum.textContent, secondNum.textContent);
+    operation.textContent = '';
+    secondNum.textContent = '';
+  }
+});
 
+backspace.addEventListener('click', () => {
+  if (secondNum.childNodes.length != 0) {
+    secondNum.textContent = secondNum.textContent.slice(0, -1);
+  } else if (operation.childNodes.length != 0) {
+    operation.textContent = '';
+  } else {
+    firstNum.textContent = firstNum.textContent.slice(0, -1);
+  }
+});
 
-//Testing functions ** REMOVE ON PROJECT COMPLETION **
-add(1,2);
-subtract(1,2);
-multiply(1,2);
-divide(1,2);
+clear.addEventListener('click', () => {
+  firstNum.textContent = '';
+  operation.textContent = '';
+  secondNum.textContent = '';
+});
+

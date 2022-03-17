@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
-    <title>Calculator</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator-2</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <div class="text-field">-------</div>
-        <div class="buttons">
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
-            <button>+</button>
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button>-</button>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>x</button>
-            <button>=</button>
-            <button>C</button>
-            <button>/</button>
-        </div>
-
-    </div>
+  <div id="calculator" class="calculator">
+    <div class="result"><p><span id="firstNum"></span> <span id="operation"></span> <span id="secondNum"></span></p></div>
+    
+    <span class="clear grey" id="clear">AC</span>
+    <span class="grey"> </span>
+    <span class="grey" value='C' id="backspace">C</span>
+    <span class="operator operationButton" data-value='/'>÷</span>
+  
+    <span class="numberButton" data-value="7">7</span>
+    <span class="numberButton" data-value="8">8</span>
+    <span class="numberButton" data-value="9">9</span>
+    <span class="operator operationButton" data-value='*'>x</span>
+    
+    <span class="numberButton" data-value="4">4</span>
+    <span class="numberButton" data-value="5">5</span>
+    <span class="numberButton" data-value="6">6</span>
+    <span class="operator operationButton" data-value='-'>-</span>
+    
+    <span class="numberButton" data-value="1">1</span>
+    <span class="numberButton" data-value="2">2</span>
+    <span class="numberButton" data-value="3">3</span>
+    <span class="operator operationButton" data-value='+'>+</span>
+    
+    <span class="double" data-value="0" id="zero">0</span>
+    <span id="decimal" data-value='.'>.</span>
+    <span class="operator" id="equals">=</span>
+    
+  </div>
 </body>
 </html>
